@@ -1,0 +1,6 @@
+<lib-multi-edit-table [dataSource]="dataSource"
+                      [columns]="columns"
+                      (updateWidgetState)="afterUpdateSelectedCells($event)"
+                      (updateDependingColumns)="updateDependingColumns($event)"
+                      (afterDelete)="afterDelete($event)">
+</lib-multi-edit-table>

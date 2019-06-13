@@ -53,15 +53,15 @@
 })
 export class MultiEditTableComponent implements OnInit, OnChanges {
 
-    @Input() dataSource;
-    @Input() columns: Column[];
+    @Input()  dataSource;
+    @Input()  columns: Column[];
     @Output() updateWidgetState      = new EventEmitter<void>();
     @Output() updateDependingColumns = new EventEmitter<EditedRows>();
     @Output() afterDelete            = new EventEmitter<void>();
     displayedColumns: string[];
 
-    tableMouseDown:   MouseEvent;
-    tableMouseUp:     MouseEvent;
+    tableMouseDown:     MouseEvent;
+    tableMouseUp:       MouseEvent;
     FIRST_EDITABLE_ROW: number = 0;
     LAST_EDITABLE_ROW:  number = ELEMENT_DATA.length - 1; // = 9
     FIRST_EDITABLE_COL: number = 1;                       // first column pos is not editable --> so start from index 1
@@ -188,11 +188,8 @@ export class MultiEditTableComponent implements OnInit, OnChanges {
     private updateSelectedCellsState(mouseDownColId: number, mouseUpColId: number, mouseDownRowId: number, mouseUpRowId: number) {
 
       // init selected cells
-      for (let i = this.FIRST_EDITABLE_ROW; i <= this.LAST_EDITABLE_ROW; i++) {
-        for (let j = this.FIRST_EDITABLE_COL; j <= this.LAST_EDITABLE_COL; j++) {
-          this.selectedCellsState[i][j] = false;
-        }
-      }
+      this.setSelectedCells(this.FIRST_EDITABLE_ROW, this.LAST_EDITABLE_ROW, this.FIRST_EDITABLE_COL, this.LAST_EDITABLE_COL, false);
+
       // update selected cells
       let startCol: number;
       let endCol:   number;
@@ -218,6 +215,23 @@ export class MultiEditTableComponent implements OnInit, OnChanges {
           this.selectedCellsState[i][j] = true;
         }
       }
+      this.setSelectedCells(startRow, endRow, startCol, endCol, true);
+    }
+
+   /**
+    * @param firstEditableRow
+    * @param lastEditableRow
+    * @param firstEditableCol
+    * @param lastEditableCol
+    * @param value
+    */
+    private setSelectedCells(firstEditableRow: number, lastEditableRow: number, firstEditableCol: number, lastEditableCol: number, value: boolean) {
+
+      for (let i = firstEditableRow; i <= lastEditableRow; i++) {
+        for (let j = firstEditableCol; j <= lastEditableCol; j++) {
+          this.selectedCellsState[i][j] = value;
+        }
+      }
     }
 
     /**
@@ -231,20 +245,36 @@ export class MultiEditTableComponent implements OnInit, OnChanges {
       // If no cell is selected then ignore keyUp event
       if(this.tableMouseDown && this.tableMouseUp) {
 
-        let specialKeys: string[] = ['Enter', 'PrintScreen', 'Escape', 'cControl', 'NumLock', 'PageUp', 'PageDown', 'End',
-          'Home', 'Delete', 'Insert', 'ContextMenu', 'Control', 'ControlAltGraph', 'Alt', 'Meta', 'Shift', 'CapsLock',
-          'TabTab', 'ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Pause', 'ScrollLock', 'Dead', '',
-          'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
+        if(event.key === 'Delete') {
+          this.newCellValue = '';
+          this.updateSelectedCellsValues(this.newCellValue);
 
-        if(event.key === 'Backspace') { // 'delete' key is pressed
+        } else if(event.key === 'Backspace') { // 'delete' key is pressed
           const end: number = this.newCellValue.length - 1;
           this.newCellValue = this.newCellValue.slice(0, end);
+          this.updateSelectedCellsValues(this.newCellValue);
 
-        } else if(this.indexOfInArray(event.key, specialKeys) === -1) {
+        } else if(this.isNotSpecialKeys(event)) { // key is not specialKeys
           this.newCellValue += event.key;
+          this.updateSelectedCellsValues(this.newCellValue);
         }
-        this.updateSelectedCellsValues(this.newCellValue);
+        if(event.key === 'Enter') {
+          this.setSelectedCells(this.FIRST_EDITABLE_ROW, this.LAST_EDITABLE_ROW, this.FIRST_EDITABLE_COL, this.LAST_EDITABLE_COL, false);
+        }
       }
+    }
+
+    /**
+     * @param event
+     */
+     isNotSpecialKeys(event: KeyboardEvent): boolean {
+
+       let specialKeys: string[] = ['Enter', 'PrintScreen', 'Escape', 'cControl', 'NumLock', 'PageUp', 'PageDown', 'End',
+         'Home', 'Insert', 'ContextMenu', 'Control', 'ControlAltGraph', 'Alt', 'Meta', 'Shift', 'CapsLock',
+         'TabTab', 'ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Pause', 'ScrollLock', 'Dead', '',
+         'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
+
+       return this.indexOfInArray(event.key, specialKeys) === -1;
     }
 
     indexOfInArray(item: string, array: string[]): number {

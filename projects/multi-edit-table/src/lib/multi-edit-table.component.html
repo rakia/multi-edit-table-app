@@ -9,9 +9,9 @@
       </td>
     </ng-container>
     <ng-container *ngIf="column.editable">
-      <td mat-cell (mousedown)="onMouseDown(i, 2, 'unit')" (mouseup)="onMouseUp(i, 2, 'unit')"
+      <td mat-cell (mousedown)="onMouseDown(i, j, column.col)" (mouseup)="onMouseUp(i, j, column.col)"
                    *matCellDef="let element; let i = index"
-                   [ngClass]="{'selected': selectedCellsState[i][2], 'unselected': !selectedCellsState[i][2]}">
+                   [ngClass]="{'selected': selectedCellsState[i][j], 'unselected': !selectedCellsState[i][j]}">
         {{element[column.col]}}
       </td>
     </ng-container>

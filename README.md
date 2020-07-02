@@ -1,3 +1,8 @@
+The tutorial for this Angular application is available here:
+
+### How to Create an Angular Library with NodeJS - Export an Angular Material Table with npm publish
+https://levelup.gitconnected.com/multi-edit-table-export-as-an-angular-library-40b37e773fd3
+
 # MultiEditTableApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.

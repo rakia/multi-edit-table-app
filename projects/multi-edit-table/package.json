@@ -10,10 +10,9 @@
   },
   "homepage" :"https://medium.com/@rakia",
   "peerDependencies": {
-    "@angular/common": "^7.2.15",
-    "@angular/core": "^7.2.15",
-    "@angular/material": "^7.3.7",
-    "hammerjs": "^2.0.8"
+    "@angular/common": "~10.0.2",
+    "@angular/core": "~10.0.2",
+    "@angular/material": "^10.0.1"
   },
   "private": false
 }

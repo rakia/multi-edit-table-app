@@ -1,5 +1,5 @@
  import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
- import { MatSnackBar } from "@angular/material";
+ import { MatSnackBar } from "@angular/material/snack-bar";
 
   export interface MouseEvent {
     rowId:     number;

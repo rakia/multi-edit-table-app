@@ -171,5 +171,8 @@
       }
     }
   },
-  "defaultProject": "multi-edit-table-app"
+  "defaultProject": "multi-edit-table-app",
+  "cli": {
+    "analytics": false
+  }
 }

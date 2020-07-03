@@ -5,7 +5,7 @@ https://levelup.gitconnected.com/multi-edit-table-export-as-an-angular-library-4
 
 # MultiEditTableApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli)
 
 ## Development server
 

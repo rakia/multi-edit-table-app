@@ -1,3 +1,8 @@
+💡 🧠 Join my free email newsletter about engineering, technology, and leadership: https://rakiabensassi.substack.com
+
+You can follow me and find more of my articles here: https://rakiabensassi.medium.com/
+And if you would like to support me, you can sign up here: https://rakiabensassi.medium.com/membership
+
 ### How to Create an Angular Library with NodeJS - Export an Angular Material Table with npm publish
 
 The blog describing this project is available here: https://levelup.gitconnected.com/multi-edit-table-export-as-an-angular-library-40b37e773fd3
